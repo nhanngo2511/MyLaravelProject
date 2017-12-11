@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 use App\Post;
 use App\User;
@@ -43,8 +43,15 @@ Route::get('/onetoone/post/{id}/user', function($id){
 
 });
 
-Route::get('/manytonany/user/{id}/roles', function($id) {
+Route::get('/manytomany/user/{id}/roles', function($id) {
     return User::find($id)->Roles;
+});
+
+// Accessing intermediate table / pivot
+
+Route::get('/user/{id}/pivot', function($id){
+	return Role::find($id)->Users; 
+
 });
 
 
