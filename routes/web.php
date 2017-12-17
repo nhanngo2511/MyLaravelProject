@@ -1,9 +1,9 @@
  <?php
 
-use App\Post;
-use App\User;
-use App\Role;
-use App\Country;
+ use App\Post;
+ use App\User;
+ use App\Role;
+ use App\Country;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +18,7 @@ use App\Country;
 
 Route::get('/', function () {
 
-    return view('welcome');
+	return view('welcome');
 });
 
 
@@ -60,9 +60,10 @@ Route::get('/', function () {
 
 Route::Get('posts','PostsController@index')->name('posts.index');
 
+Route::Get('posts/create','PostsController@create')->name('posts.create');
+
 Route::Get('posts/{id}','PostsController@show')->name('posts.show');
 
-Route::Get('posts/createqq','PostsController@createqq')->name('posts.create');
 Route::Post('posts','PostsController@store')->name('posts.store');
 
 Route::Get('posts/{id}/edit','PostsController@edit')->name('posts.edit');
@@ -72,6 +73,6 @@ Route::Get('posts/{id}/delete','PostsController@destroy')->name('posts.destroy')
 
 
 
-// Route::resource('posts', 'PostsController');
+ //Route::resource('posts', 'PostsController');
 
 

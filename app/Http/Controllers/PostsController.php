@@ -22,7 +22,7 @@ class PostsController extends Controller
      * Show the form for creating a new resource.
      *
      */
-    public function createqq()
+    public function create()
     {
         return view('posts.create');
     }
@@ -34,10 +34,29 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        Post::create($request->all());
 
-        return redirect('posts'); 
-    }
+       $input = $request->all();
+
+        // Validation
+       $this->validate($request, [
+        'title'=>'required'
+        ]);
+
+        //Input File
+       if ($file = $request->file('file')) {
+        $name = $file->getClientOriginalName();
+
+        $file->move('images', $name);
+
+        $input['path'] = $name;
+
+    } 
+
+
+    Post::create($input);
+
+    return redirect('posts'); 
+}
 
     /**
      * Display the specified resource.
@@ -68,6 +87,8 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+
         $post = Post::findOrFail($id);
 
         $post->update($request->all());
@@ -81,6 +102,8 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        return $id;
+        Post::findOrFail($id)->delete();
+
+        return redirect('posts'); 
     }
 }
